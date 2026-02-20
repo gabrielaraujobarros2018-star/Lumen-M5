@@ -1,0 +1,63 @@
+Lumen OS Incremental Build Plan for Snapdragon 680 (Galaxy A05s, 6GB RAM)
+========================================================================
+Date: Feb 20, 2026
+Target: Custom 3GB Linux distro (not based on existing distros), ~200k files total
+Hardware: Snapdragon 680 (-j4 max practical due to RAM), ARMv7a cross-compile for Nexus 6
+Goal: Avoid monolithic 10-40 day compile; spread 5-20 days with testing.
+
+Why Incremental?
+- Test each component immediately (boot QEMU/Termux proot).
+- Resume after school (1-5:30pm), cold showers, Geometry Dash.
+- Low risk: Fix errors per stage, use ccache for repeats.
+- Mobile-friendly: Termux + git/MEGA backups.
+
+Build Sequence
+1. KERNEL (1-2 hours)
+   - Cross-compile Linux 6.x for Nexus 6 (ARMv7a).
+   - Config: defconfig + moto-shamu fragments, Phosh/GNOME support.
+   - make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- zImage dtbs modules
+   - Test: QEMU or fastboot to device.
+
+2. BASE SYSTEM (2-4 hours)
+   - BusyBox (static, ash shell).
+   - glibc/musl (minimal, no threads if possible).
+   - mkdir /tmp/lumen-base; cp compiled bins.
+   - chroot test: Basic commands work?
+
+3. DRIVERS & LIBS (1-3 days)
+   - Custom kernel modules (GPU, modem?).
+   - Core libs: libudev, dbus, pipewire minimal.
+   - Wayland libs for Phosh.
+   - Prioritize: No browser/Chromium (20h killer).
+
+4. APPS/UI (3-10 days)
+   - Phosh/GNOME Mobile (stripped).
+   - Minimal apps: terminal, file mgr.
+   - Your custom bits (Lumen OS tweaks).
+
+5. IMAGE CREATION (minutes)
+   - mkdir rootfs; rsync /tmp/lumen-base/ rootfs/
+   - mke2fs -t ext4 -L lumen img/lumen.img 3G
+   - sudo mount img/lumen.img /mnt
+   - rsync -a rootfs/ /mnt/
+   - genimage --rootpath /mnt --input config/genimage.cfg
+   - Output: flashable .img for Nexus 6.
+
+Optimizations
+- ccache: export CCACHE_DIR=$HOME/.ccache; prealloc 1GB.
+- zram: For swap on 6GB RAM.
+- distcc: If multi-device (future).
+- Strip: --strip-debug everywhere.
+- Termux setup: pkg install build-essential cross-arm-linux-gnueabi git
+
+Time Estimates (24/7 equiv, but pause-friendly)
+| Stage | Est. Days (-j4) |
+|-------|-----------------|
+| Kernel | 0.1 |
+| Base   | 0.2 |
+| Drivers| 1-3 |
+| UI     | 3-10 |
+| Total  | 5-20 days spread
+
+Backup: git commit per stage, MEGA sync.
+Next: Start with kernel config from your Nexus 6 repo.
