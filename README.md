@@ -2,8 +2,6 @@
 
 # Lumen-M5-Ofc-Repo
 
-We has a break from *February 22 to February 28*.
-Official M5 Start on *March 1 and launches on late march* as **Source codes**. 
 Welcome to this Lumen build **M5** repo.
 
 ## Compressing
