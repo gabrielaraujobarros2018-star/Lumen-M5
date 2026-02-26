@@ -1,0 +1,155 @@
+/*
+Apply via: ~/.config/gtk-4.0/gtk.css
+*/
+/* 1980s_clock.css for Phosh/GNOME Shell */
+/* Retro 80s vaporwave aesthetic for Phosh */
+
+/* Main clock container - chunky CRT bezel */
+.clock,
+.clock-display,
+.clock-display-box {
+    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+    border: 4px solid;
+    border-image: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff) 1;
+    border-radius: 0;
+    padding: 12px 20px;
+    margin: 4px;
+    box-shadow: 
+        inset 0 0 20px #ff00ff20,
+        inset 0 0 40px #00ffff20,
+        0 0 30px #ff00ff40,
+        0 0 60px #00ffff30;
+    font-family: "OCR A", "Courier New", monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* CRT scanline overlay effect */
+.clock::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 255, 0.03) 2px,
+        rgba(0, 255, 255, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Glow pulse animation */
+@keyframes retro-glow {
+    0%, 100% { 
+        box-shadow: 
+            inset 0 0 20px #ff00ff20,
+            inset 0 0 40px #00ffff20,
+            0 0 30px #ff00ff40,
+            0 0 60px #00ffff30;
+    }
+    50% { 
+        box-shadow: 
+            inset 0 0 30px #ff00ff40,
+            inset 0 0 60px #00ffff40,
+            0 0 50px #ff00ff60,
+            0 0 100px #00ffff60;
+    }
+}
+
+.clock {
+    animation: retro-glow 3s ease-in-out infinite;
+}
+
+/* Huge 7-segment style time */
+.clock-time {
+    font-size: 32px;
+    font-weight: 900;
+    color: #00ffff;
+    text-shadow: 
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 30px #ff00ff,
+        2px 0 0 #000,
+        -2px 0 0 #000,
+        0 2px 0 #000,
+        0 -2px 0 #000;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent 20%, #ff00ff20 50%, transparent 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* Smaller date in vaporwave pink */
+.clock-date {
+    font-size: 12px;
+    color: #ff00ff;
+    text-shadow: 
+        0 0 8px #ff00ff,
+        0 0 16px #ff00ff;
+    margin-top: 4px;
+    letter-spacing: 4px;
+    font-weight: 700;
+}
+
+/* Glitch effect on hover */
+.clock:hover .clock-time {
+    animation: glitch 0.3s linear infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* Phosh mobile optimizations */
+#panel .clock {
+    margin: 4px 12px;
+    padding: 10px 16px;
+    font-size: 28px;
+}
+
+@media (max-width: 480px) {
+    .clock-time {
+        font-size: 26px;
+        letter-spacing: 1px;
+    }
+    
+    .clock {
+        padding: 8px 14px;
+        margin: 2px;
+    }
+}
+
+/* 80s color cycling background */
+@keyframes vaporwave-bg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.clock {
+    background-size: 400% 400%;
+    animation: vaporwave-bg 8s ease infinite;
+}
+
+/* Neon flicker effect */
+@keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+    20%, 24%, 55% { opacity: 0.85; }
+}
+
+.clock-time {
+    animation: flicker 3s infinite linear;
+  }
