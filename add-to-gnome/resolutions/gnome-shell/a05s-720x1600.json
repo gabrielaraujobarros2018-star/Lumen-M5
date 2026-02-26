@@ -1,0 +1,10 @@
+{
+  "name": "Galaxy A05s Lumen OS",
+  "scale": 1.1,
+  "panel-height": 38,
+  "clock-size": 26,
+  "dash-icon-size": 36,
+  "font-scale": 1.0,
+  "workspaces": 3,
+  "phosh-mode": true
+}
