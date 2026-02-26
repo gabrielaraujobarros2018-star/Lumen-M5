@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Lumen M5 device configuration for M5Stack ESP32 -->
+<device name="m5">
+    <!-- Core hardware props -->
+    <prop name="ro.product.device" value="m5" />
+    <prop name="ro.product.model" value="Lumen M5" />
+    <prop name="ro.product.brand" value="LumenOS" />
+    <prop name="ro.product.manufacturer" value="M5Stack" />
+    <prop name="ro.build.product" value="m5" />
+
+    <!-- Display for M5Stack (320x240 TFT) -->
+    <prop name="ro.sf.lcd_density" value="160" />
+    <prop name="persist.sys.phosh.scale" value="1.0" />
+
+    <!-- Battery & power optimization (your focus area) -->
+    <prop name="ro.config.max_starting_bg" value="8" />
+    <prop name="power.saving.mode" value="1" />
+    <prop name="ro.ril.power_collapse" value="0" />
+
+    <!-- Kernel & bootloader tweaks for ARMv7a/ESP32 -->
+    <prop name="ro.kernel.android.checkjni" value="false" />
+    <prop name="dalvik.vm.heapsize" value="256m" />
+    <prop name="ro.config.low_ram" value="true" />
+
+    <!-- Phosh/GNOME mobile UI -->
+    <prop name="ro.phosh.enable" value="true" />
+    <prop name="gnome.shell.extensions.enabled" value="true" />
+
+    <!-- Permissions for sensors/buttons (M5Unified style) -->
+    <permission name="android.permission.BUTTON_ACCESS" >
+        <group gid="input" />
+    </permission>
+
+    <!-- Features -->
+    <feature name="android.hardware.touchscreen" />
+    <feature name="android.hardware.imu" />
+    <feature name="android.software.leanback" /> <!-- For embedded UI -->
+
+    <!-- Audio & IMU (gyro/accel like your Termux builds) -->
+    <prop name="persist.audio.fluence" value="false" />
+    <prop name="ro.hardware.imu" value="m5imu" />
+</device>
