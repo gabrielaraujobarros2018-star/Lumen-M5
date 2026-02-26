@@ -1,0 +1,9 @@
+{
+  "name": "OnePlus 6T",
+  "x-res": 1080,
+  "y-res": 2340,
+  "corner-radii": [90, 60, 30, 15],
+  "cutouts": [
+    {"path": "M0 0 L120 0 Q150 30 120 60 L0 60 Z"}
+  ]
+}
