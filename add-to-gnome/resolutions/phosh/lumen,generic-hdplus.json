@@ -1,0 +1,7 @@
+{
+  "name": "Lumen OS HD+ Generic",
+  "x-res": 1080,
+  "y-res": 2400,
+  "corner-radii": [24, 24, 24, 24],
+  "cutouts": []
+}
