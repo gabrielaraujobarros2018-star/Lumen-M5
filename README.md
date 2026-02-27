@@ -1,6 +1,6 @@
 *Lumen M5 to M8 is the final `Milestone` Phase Builds*
 
-# Lumen-M5-Ofc-Repo
+# Lumen-M5
 
 Welcome to this Lumen build **M5** repo.
 
